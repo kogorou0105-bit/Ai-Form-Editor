@@ -49,3 +49,15 @@ npm run dev
 Access the application at `http://localhost:3000`.
 
 ---
+
+## 🎥 Author on YouTube
+
+欢迎访问项目作者的 YouTube 频道，获取更多相关内容与教程：
+
+[![YouTube Channel](https://img.shields.io/badge/YouTube-Visit-red?logo=youtube&logoColor=white)](https://www.youtube.com/@techwithemmaofficial)
+
+## 🗂 Project Structure
+
+下图展示了本项目 dashboard 整体结构，便于快速理解各个模块之间的关系：
+
+![Project Structure](./docs/project-structure.png)
