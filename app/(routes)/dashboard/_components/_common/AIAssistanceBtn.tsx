@@ -9,11 +9,12 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useBuilder } from "@/context/builder-provider";
 import { toast } from "@/hooks/use-toast";
-import { AIChatSession } from "@/lib/google-ai";
+// import { AIChatSession } from "@/lib/google-ai";
 import { generateUniqueId } from "@/lib/helper";
 import { generateFormQuestionPrompt } from "@/lib/prompts";
 import { Loader, Sparkles } from "lucide-react";
 import React, { useState } from "react";
+import { generateFormWithAI } from "@/actions/generate.action";
 
 const AIAssistanceBtn = () => {
   const { formData, blockLayouts, setBlockLayouts } = useBuilder();
@@ -43,9 +44,13 @@ const AIAssistanceBtn = () => {
         blockLayouts
       );
 
-      const result = await AIChatSession.sendMessage(PROMPT);
-      const responseText = await result.response.text();
-      const parsedResponse = JSON?.parse(responseText);
+      const result = await generateFormWithAI(PROMPT);
+      if (!result.success || !result.data) {
+        throw new Error(result.error || "Failed to generate");
+      }
+      const parsedResponse = JSON.parse(result.data);
+      // const responseText = await result.response.text();
+      // const parsedResponse = JSON?.parse(responseText);
       const actionType = parsedResponse.actionType;
       const generatedBlocks = parsedResponse.blocks;
       const addUniqueIdToGeneratedBlocks = addUniqueIds(generatedBlocks);
